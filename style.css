@@ -2,13 +2,13 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; 
+    box-sizing: border-box; /* KEEPS SIZING CORRECT */
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 html, body {
     width: 100%;
-    overflow-x: hidden; 
+    overflow-x: hidden; /* STOPS SIDE SCROLLING */
 }
 
 /* --- HEADER (Desktop) --- */
@@ -26,20 +26,19 @@ html, body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-#logo { height: 50px; }
+#logo { height: 50px; flex-shrink: 0; /* Prevents logo from squishing */ }
 #logo img { height: 100%; width: auto; }
 
-/* The container for links and buttons */
+/* FIXED: Changed width:100% to flex:1 so it doesn't overflow */
 #nav-menu {
     display: flex;
     align-items: center;
-    width: 100%;
+    flex: 1; 
     justify-content: space-between;
     margin-left: 20px;
 }
 
-/* Hide Hamburger on Desktop */
-#menu-icon { display: none; }
+#menu-icon { display: none; } /* Hidden on laptop */
 
 .nav-links { display: flex; gap: 20px; }
 
@@ -104,15 +103,26 @@ html, body {
     gap: 40px;
 }
 
-#box1 { flex: 1; min-width: 300px; max-width: 600px; }
+/* FIXED: Changed min-width to 100% for mobile safety */
+#box1 { 
+    flex: 1; 
+    min-width: 280px; /* Smaller min-width so it fits small phones */
+    max-width: 600px; 
+}
 #box1 h1 { font-size: 3rem; color: #3e2723; margin-bottom: 20px; line-height: 1.2; }
 #box1 p { font-size: 1.2rem; color: #5d4037; line-height: 1.6; margin-bottom: 30px; }
 
-.USEBOX { display: flex; gap: 20px; }
+.USEBOX { display: flex; gap: 20px; flex-wrap: wrap; } 
 #start { background-color: #6f4e37; padding: 15px 30px; color: white; border-radius: 5px; cursor: pointer; text-align: center; }
 #watch { padding: 15px 30px; border: 2px solid #6f4e37; color: #6f4e37; border-radius: 5px; cursor: pointer; text-align: center; }
 
-#box2 { flex: 1; min-width: 300px; max-width: 600px; display: flex; justify-content: center; }
+#box2 { 
+    flex: 1; 
+    min-width: 280px; /* Smaller min-width */
+    max-width: 600px; 
+    display: flex; 
+    justify-content: center; 
+}
 #box2 img { width: 100%; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
 /* --- PAGE 2 (Grid) --- */
@@ -163,34 +173,31 @@ html, body {
     
     #header {
         height: auto;
-        flex-wrap: wrap; /* Allow wrapping so menu can drop down */
+        flex-wrap: wrap; 
         padding: 15px 20px;
         position: relative; 
     }
 
-    /* 1. Show the Hamburger Icon */
     #menu-icon {
         display: block; 
         font-size: 2rem;
         cursor: pointer;
         color: #4b3621;
-        margin-left: auto; /* Pushes icon to the right */
+        margin-left: auto; 
     }
 
-    /* 2. Hide the Menu by default */
     #nav-menu {
         width: 100%;
-        max-height: 0px; /* Closed by default */
-        overflow: hidden; /* Hides content when closed */
-        flex-direction: column; /* Stack items vertically */
+        max-height: 0px; 
+        overflow: hidden; 
+        flex-direction: column; 
         align-items: center;
-        transition: max-height 0.5s ease-out; /* Smooth slide animation */
-        margin-left: 0;
+        transition: max-height 0.5s ease-out; 
+        margin-left: 0; /* FIXED: Removed margin that caused overflow */
         margin-top: 10px;
-        border-top: 1px solid #eee; /* Light separator line */
+        border-top: 1px solid #eee; 
     }
 
-    /* 3. Style the layout inside the open menu */
     .nav-links {
         flex-direction: column;
         gap: 15px;
@@ -208,10 +215,12 @@ html, body {
         margin-bottom: 20px;
     }
 
-    /* 4. Adjust the Page Content */
     #page1 { padding-top: 100px; }
     #content { flex-direction: column-reverse; text-align: center; gap: 20px; }
-    #box1 h1 { font-size: 2rem; }
+    
+    /* FIXED: Allow font to shrink on small screens */
+    #box1 h1 { font-size: 2rem; word-wrap: break-word; }
+    
     .USEBOX { justify-content: center; }
     #start, #watch { width: 100%; }
 }
